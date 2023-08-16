@@ -1,0 +1,26 @@
+import http from '@/utils/asiox-set';
+import type { QueryParams, ListItem, PostParams, PutParams } from './types';
+
+enum Api {
+  {{ functionName }} = '{{ api }}',
+}
+
+export const get{{ functionName }}ListApi = (params: QueryParams) => {
+  return http.get<ResponseBody<ListItem[]>>(Api.{{ functionName }}, { params });
+}
+
+export const get{{ functionName }}Api = (id: number) => {
+  return http.get<ResponseBody<ListItem>>(Api.{{ functionName }} + '/' + id);
+}
+
+export const delete{{ functionName }}Api = (id: number) => {
+  return http.delete<ResponseBody<ListItem>>(Api.{{ functionName }} + '/' + id);
+}
+
+export const put{{ functionName }}Api = (id: number, data: PutParams) => {
+  return http.put<ResponseBody<ListItem>>(Api.{{ functionName }} + '/' + id, data);
+}
+
+export const post{{ functionName }}Api = (data: PostParams) => {
+  return http.post<ResponseBody<ListItem>>(Api.{{ functionName }}, data);
+}

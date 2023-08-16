@@ -1,0 +1,11 @@
+{
+  meta: {
+    title: '{{ routeTitle }}',
+    isLogin: true,
+    permissions: [],
+  },
+  path: '{{ routePath }}', 
+  name: '{{ routeName }}', 
+  component: () => import('@/views/{{componentPath}}/index.vue'),
+},
+//-- append router here --

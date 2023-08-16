@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { PropType, EmitType } from './types';
+
+defineOptions({ name: '{{ name }}' });
+
+const props = defineProps<PropType>();
+const emit = defineEmits<EmitType>();
+
+const visible = computed({
+  get() {
+    return props.open;
+  },
+  set(value) {
+    emit('update:open', value);
+  }
+});
+</script>
+
+<template>
+  <a-model v-model:open="visible" v-bind="$attrs">
+  </a-model>
+</template>

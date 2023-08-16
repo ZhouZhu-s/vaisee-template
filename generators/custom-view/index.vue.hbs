@@ -1,0 +1,75 @@
+<script setup lang="ts">
+import { getUserListApi } from '@/api/user';
+import type { Demo } from '@/api/user/types';
+import { useList } from '@/hooks/useList';
+import { computed, onMounted, ref } from 'vue';
+import SearchForm from '@/components/search-form/index.vue';
+import { SearchList, columns } from './const.data';
+import type { ListItem } from './types';
+
+const searchList = ref(SearchList);
+const onSearch = (data: any) => {
+  console.log(data);
+};
+const onReset = () => {
+  console.log('reset');
+};
+
+const formatList = (list: Demo[]) => {
+  return list.map((item) => {
+    return {
+      key: item.msg
+    };
+  });
+};
+const { list, current, pageSize, total, loading, getList } = useList<Demo[], ListItem>(
+  getUserListApi,
+  formatList
+);
+const pagination = computed(() => ({
+  total: total.value,
+  current: current.value,
+  pageSize: pageSize.value,
+  showSizeChanger: true,
+  showQuickJumper: true,
+  showTotal: (total: number) => `共 ${total} 条数据`
+}));
+const handleTableChange = (pagination: any) => {
+  getList();
+};
+
+onMounted(() => {
+  getList();
+});
+</script>
+
+<template>
+  <main class="{{ name }}">
+    <header class="search">
+      <SearchForm v-model:items="searchList" @on-search="onSearch" @on-reset="onReset" />
+    </header>
+    <div class="content">
+      <a-table
+        rowKey="id"
+        :columns="columns"
+        :dataSource="list"
+        :pagination="pagination"
+        :loading="loading"
+        @change="handleTableChange"
+        :scroll="{ y: 'calc(100vh - 340px)' }"
+      >
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.dataIndex === 'action'">
+            <a class="a"> 编辑 </a>
+            <span style="color: #ccc">｜</span>
+            <a class="a" @click=""> 删除 </a>
+          </template>
+        </template>
+      </a-table>
+    </div>
+  </main>
+</template>
+
+<style lang="less" scoped>
+.{{ name }} {}
+</style>

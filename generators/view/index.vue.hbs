@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import type { ListType } from './types';
+
+defineOptions({ name: '{{ name }}', });
+
+const list = ref<ListType[]>([]);
+</script>
+
+<template>
+  <section class="{{ name }}"></section>
+</template>
+
+<style lang="less" scoped>
+.{{ name }} {}
+</style>

@@ -1,0 +1,15 @@
+<script setup lang="ts">
+import type { PropType, EmitType } from './types';
+
+defineOptions({ name: '{{ name }}', });
+
+const props = defineProps<PropType>();
+const emits = defineEmits<EmitType>();
+</script>
+
+<template>
+  <section class="{{ name }}"></section>
+</template>
+
+<style lang="less">
+</style>

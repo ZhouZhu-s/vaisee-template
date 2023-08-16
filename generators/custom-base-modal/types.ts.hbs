@@ -1,0 +1,6 @@
+export type PropType = { open: boolean; id: number | null };
+
+export type EmitType = {
+  (e: 'update:open', open: boolean): void;
+  (e: 'update:id', id: number | null): void;
+};

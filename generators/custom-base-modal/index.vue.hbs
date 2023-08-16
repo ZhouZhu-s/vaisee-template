@@ -1,0 +1,53 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue';
+import type { PropType, EmitType } from './types';
+
+const props = defineProps<PropType>();
+const emit = defineEmits<EmitType>();
+
+const loading = ref(false);
+
+const visible = computed({
+  get() {
+    return props.open;
+  },
+  set(value) {
+    emit('update:open', value);
+  }
+});
+watch(visible, (value) => {
+  if (value) {
+    props.id && getDetail();
+  } else {
+    reset();
+  }
+});
+
+const reset = () => {
+  emit('update:id', null);
+};
+
+const create = () => {
+  visible.value = false;
+  console.log('create');
+};
+
+const update = () => {
+  visible.value = false;
+  console.log('update');
+};
+
+const getDetail = () => {
+  console.log('getDetail');
+};
+
+const handleOk = (e: MouseEvent) => {
+  console.log(e);
+  props.id ? update() : create();
+};
+</script>
+
+<template>
+  <a-modal v-model:open="visible" @ok="handleOk" :confirmLoading="loading">
+  </a-modal>
+</template>

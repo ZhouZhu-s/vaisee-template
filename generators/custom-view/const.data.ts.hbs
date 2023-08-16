@@ -1,0 +1,20 @@
+import type { SearchFormItem } from '@/components/search-form/types';
+import type { ColumnProps } from 'ant-design-vue/lib/table';
+
+export const SearchList: SearchFormItem[] = [
+  {
+    type: 'input',
+    label: '姓名',
+    key: 'name',
+    value: null
+  }
+];
+
+export const columns: ColumnProps[] = [
+  {
+    title: 'Key',
+    dataIndex: 'key',
+    key: 'key',
+    align: 'center'
+  }
+];
