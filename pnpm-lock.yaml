@@ -9,14 +9,20 @@ dependencies:
     specifier: ^6.1.0
     version: 6.1.0(vue@3.3.4)
   ant-design-vue:
-    specifier: 4.0.0-rc.6
-    version: 4.0.0-rc.6(vue@3.3.4)
+    specifier: 4.0.0
+    version: 4.0.0(vue@3.3.4)
   axios:
     specifier: ^1.4.0
     version: 1.4.0(debug@4.3.4)
+  dayjs:
+    specifier: ^1.11.9
+    version: 1.11.9
   pinia:
     specifier: ^2.1.4
     version: 2.1.4(typescript@5.1.6)(vue@3.3.4)
+  pinia-plugin-persistedstate:
+    specifier: ^3.2.0
+    version: 3.2.0(pinia@2.1.4)
   unplugin-vue-components:
     specifier: ^0.25.1
     version: 0.25.1(vue@3.3.4)
@@ -1338,8 +1344,8 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /ant-design-vue@4.0.0-rc.6(vue@3.3.4):
-    resolution: {integrity: sha512-j+GAhgC1p1+nmQVbaEeY2miZ1h+8jBLlxTESX93MwcshVaYTkZNhiyddtl92VvEDJTedzuX+1oT3TP5wG/+tHg==}
+  /ant-design-vue@4.0.0(vue@3.3.4):
+    resolution: {integrity: sha512-6V8DxHPv3HJYDdv48W/KFOUjeZDsYJhFlk13HFSKCJSR2MQs4YnPIAC+rWie9vYcVEKbO+cQDqiOM3cBoHMNUQ==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       vue: '>=3.2.0'
@@ -3624,6 +3630,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /pinia-plugin-persistedstate@3.2.0(pinia@2.1.4):
+    resolution: {integrity: sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.4(typescript@5.1.6)(vue@3.3.4)
+    dev: false
 
   /pinia@2.1.4(typescript@5.1.6)(vue@3.3.4):
     resolution: {integrity: sha512-vYlnDu+Y/FXxv1ABo1vhjC+IbqvzUdiUC3sfDRrRyY2CQSrqqaa+iiHmqtARFxJVqWQMCJfXx1PBvFs9aJVLXQ==}
