@@ -5,9 +5,11 @@ const customBaseModalGenerator = require('./custom-base-modal/index');
 const apiGenerator = require('./api/index');
 const customViewGenerator = require('./custom-view/index');
 const addRouterGenerator = require('./router/index');
+const svgComponentGenerator = require('./svg-component/index');
 
 module.exports = function (plop) {
   plop.setGenerator('component', componentGenerator);
+  plop.setGenerator('svg-component', svgComponentGenerator);
   plop.setGenerator('view', viewGenerator);
   plop.setGenerator('custom-view', customViewGenerator);
   plop.setGenerator('base-modal', baseModalGenerator);

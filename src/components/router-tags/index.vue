@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useRouterTags, type RouterTag } from '@/stores/router-tags';
+import { useRouterTags, type RouterTag } from '@/stores/routerTags';
+import { useCssVarStore } from '@/stores/cssStore';
 import { storeToRefs } from 'pinia';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
 
 defineOptions({ name: 'router-tags' });
+
+const { getCssVar } = useCssVarStore();
 
 const routerTags = useRouterTags();
 const { tagList } = storeToRefs(routerTags);
@@ -44,9 +47,18 @@ const handleClose = (path: string) => {
       :key="item.path"
       @click.stop="handleClick(item)"
       style="margin-right: 10px"
-      :class="{ 'is-active': item.path === route.fullPath }"
     >
-      <div class="item" @mouseenter="item.isHover = true" @mouseleave="item.isHover = false">
+      <div
+        :style="{
+          color:
+            route.fullPath === item.path
+              ? getCssVar('--primary-color') || '#1890ff'
+              : 'var(--text-color)'
+        }"
+        class="item"
+        @mouseenter="item.isHover = true"
+        @mouseleave="item.isHover = false"
+      >
         <span class="title">{{ item.title }}</span>
         <close-circle-filled
           class="close"
@@ -63,20 +75,24 @@ const handleClose = (path: string) => {
 .router-tags {
   display: flex;
   overflow-x: auto;
+  padding: 5px;
   &::-webkit-scrollbar {
     width: 0px;
   }
   .item {
     display: flex;
     align-items: center;
+    color: var(--text-color);
+    .title {
+      margin-right: 5px;
+    }
     .close {
       position: relative;
       z-index: 999;
-      margin-left: 3px;
       font-size: 11px;
       width: 11px;
       cursor: pointer;
-      color: rgba(0, 0, 0, 0.2);
+      color: var(--icon-color);
     }
   }
   .is-active {

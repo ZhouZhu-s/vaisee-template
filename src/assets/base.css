@@ -1,53 +1,44 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --primary-color: #1890ff;
+  --border-radius: 2px;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --light: #ffffff;
+  --light-soft: #f8f8f8;
+  --light-mute: #f2f2f2;
+  --light-little: rgba(255, 255, 255, 0.2);
 
-  --vt-c-indigo: #2c3e50;
+  --dark: rgba(0, 0, 0, 0.88);
+  --dark-soft: #222222;
+  --dark-mute: #282828;
+  --dark-little: rgba(0, 0, 0, 0.2);
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --divider-dark: rgba(84, 84, 84, 0.65);
+  --divider-light: rgba(0, 0, 0, 0.06);
 }
 
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+.AppMain {
+  transition: all 0.3s;
+  min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+.AppMain[mode='dark'] {
+  --background-color: var(--dark);
+  --text-color: rgba(255, 255, 255, 0.85);
+  --text-color-soft: rgba(255, 255, 255, 0.65);
+  --icon-color: var(--light-little);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+  background-color: var(--background-color);
+}
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+.AppMain[mode='light'] {
+  --background-color: var(--light);
+  --text-color: rgba(0, 0, 0, 0.85);
+  --text-color-soft: rgba(0, 0, 0, 0.65);
+  --icon-color: var(--dark-little);
+
+  background-color: var(--background-color);
+  
 }
 
 *,
@@ -56,8 +47,4 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
-}
-
-body {
-  min-height: 100vh;
 }

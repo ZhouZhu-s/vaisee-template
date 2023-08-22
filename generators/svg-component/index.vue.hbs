@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import type { PropType } from './types';
+
+defineOptions({ name: '{{ name }}-svg' });
+
+withDefaults(defineProps<PropType>(), {
+  width: '13px',
+  height: '13px',
+})
+</script>
+
+<template>
+  <svg
+    :width="width"
+    :height="height"
+    viewBox="0 0 13 13"
+    xmlns="http://www.w3.org/2000/svg"
+    v-bind="$attrs"
+  >
+    
+  </svg>
+</template>
