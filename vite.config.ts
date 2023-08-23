@@ -30,7 +30,8 @@ export default defineConfig(({ mode }): UserConfig => {
     css: {
       preprocessorOptions: {
         less: {
-          javascriptEnabled: true
+          javascriptEnabled: true,
+          additionalData: `@import "@/assets/utils/px-to-vwvh.less";`
         }
       }
     },
