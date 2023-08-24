@@ -44,6 +44,17 @@ module.exports = {
         }
         return true;
       }
+    },
+    {
+      type: 'input',
+      name: 'keepAlive',
+      message: 'route keep alive',
+      validate(value) {
+        if (!value) {
+          return 'keepAlive icon required';
+        }
+        return true;
+      }
     }
   ],
   actions: [
