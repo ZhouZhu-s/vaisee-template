@@ -1,14 +1,16 @@
 import './assets/main.css';
 
 import { createApp } from 'vue';
+import { setupRouter } from './router';
+import { setupDirectives } from './directives';
+import { setupStore } from './stores';
 
 import App from './App.vue';
-import router from './router';
-import pinia from './stores';
 
 const app = createApp(App);
 
-app.use(router);
-app.use(pinia);
+setupRouter(app);
+setupDirectives(app);
+setupStore(app);
 
 app.mount('#app');

@@ -5,7 +5,7 @@ export const routes: RouteRecordRaw[] = [
   meta: {
     title: 'a-v',
     keepAlive: false,
-    isLogin: true,
+    isLogin: false,
     permissions: [],
   },
   path: '/a-v', 
@@ -16,7 +16,7 @@ export const routes: RouteRecordRaw[] = [
   meta: {
     title: 'b-v',
     keepAlive: true,
-    isLogin: true,
+    isLogin: false,
     permissions: [],
   },
   path: '/b-v', 
