@@ -4,21 +4,27 @@ type State = {
   includePages: string[];
   excludePages: string[];
   maxKeepAlivePages: number;
+  currentPageName: string | null;
 };
 
 export const useKeepAlivePagesStore = defineStore('KeepAlivePagesStore', {
   state: (): State => ({
     includePages: [],
     excludePages: [],
-    maxKeepAlivePages: 5
+    maxKeepAlivePages: 5,
+    currentPageName: null,
   }),
-  
+
   persist: {
     key: 'KeepAlivePagesStore',
     storage: localStorage
   },
 
   actions: {
+    setCurrentPageName(val: string | null) {
+      this.currentPageName = val;
+    },
+
     setMaxKeepAlivePages(val: number) {
       this.maxKeepAlivePages = val;
     },

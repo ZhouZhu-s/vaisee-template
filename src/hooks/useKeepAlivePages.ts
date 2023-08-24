@@ -9,10 +9,13 @@ export const useKeepAlivePages = () => {
 
   watch(route, (r) => {
     const isKeepAlive = r.meta?.keepAlive;
-    const pageName = r.matched[0]?.components?.default?.name;
+    const pageName = r.matched[0]?.components?.default?.name || null;
+
     if (isKeepAlive && pageName) {
       keepAlivePagesStore.addIncludePage(pageName);
     }
+    
+    keepAlivePagesStore.setCurrentPageName(pageName);
   });
 
   return {

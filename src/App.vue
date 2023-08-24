@@ -8,6 +8,8 @@ import { theme } from 'ant-design-vue';
 import { useThemeMode } from '@/stores/themeMode';
 import { storeToRefs } from 'pinia';
 import { useCssVarStore } from '@/stores/cssStore';
+import RouterTags from '@/components/router-tags/index.vue';
+import { useKeepAlivePages } from '@/hooks/useKeepAlivePages';
 
 dayjs.locale('zh-cn');
 
@@ -18,7 +20,8 @@ const { mode } = storeToRefs(themeMode);
 
 const cssVarStore = useCssVarStore();
 
-// const color = ref();
+const { includePages, maxKeepAlivePages, setMaxKeepAlivePages } = useKeepAlivePages();
+setMaxKeepAlivePages(10);
 </script>
 
 <template>
@@ -28,13 +31,20 @@ const cssVarStore = useCssVarStore();
       algorithm: mode === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
       token: {
         colorPrimary: cssVarStore.getCssVar('--primary-color') || '#1890ff',
-        borderRadius: cssVarStore.getCssVar('--border-radius') || '2px',
+        borderRadius: cssVarStore.getCssVar('--border-radius') || '2px'
       }
     }"
   >
     <main class="AppMain" :mode="mode">
       <!-- <input type="color" v-model="color"> -->
-      <router-view />
+      <router-link to="/a-v">a-v</router-link>
+      <router-link to="/b-v">b-v</router-link>
+      <RouterTags></RouterTags>
+      <router-view v-slot="{ Component, route }">
+        <keep-alive :max="maxKeepAlivePages" :include="includePages">
+          <component :is="Component" :key="route.fullPath" />
+        </keep-alive>
+      </router-view>
     </main>
   </a-config-provider>
 </template>
