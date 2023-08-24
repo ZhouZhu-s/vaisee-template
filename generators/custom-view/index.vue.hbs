@@ -2,10 +2,11 @@
 import { getUserListApi } from '@/api/user';
 import type { Demo } from '@/api/user/types';
 import { useList } from '@/hooks/useList';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import SearchForm from '@/components/search-form/index.vue';
 import { SearchList, columns } from './const.data';
 import type { ListItem } from './types';
+import { useMounted } from '@/hooks/usePageLife';
 
 const searchList = ref(SearchList);
 const onSearch = (data: any) => {
@@ -38,7 +39,7 @@ const handleTableChange = (pagination: any) => {
   getList();
 };
 
-onMounted(() => {
+useMounted(() => {
   getList();
 });
 </script>
