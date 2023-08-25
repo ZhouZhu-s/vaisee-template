@@ -3,17 +3,34 @@ import enUS from 'ant-design-vue/es/locale/en_US';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
-import { ref } from 'vue';
+import { computed, watch } from 'vue';
 import { theme } from 'ant-design-vue';
 import { useThemeMode } from '@/stores/themeMode';
 import { storeToRefs } from 'pinia';
 import { useCssVarStore } from '@/stores/cssStore';
 import RouterTags from '@/components/router-tags/index.vue';
 import { useKeepAlivePages } from '@/hooks/useKeepAlivePages';
+import { useLangStore } from '@/stores/lang';
+import { useI18n } from 'vue-i18n';
 
-dayjs.locale('zh-cn');
+const langStore = useLangStore();
+const { lang } = storeToRefs(langStore);
 
-const locale = ref(zhCN.locale);
+const { locale } = useI18n();
+watch(lang, () => {
+  locale.value = lang.value;
+});
+
+dayjs.locale(lang.value);
+
+const checked = computed({
+  get() {
+    return lang.value === 'en';
+  },
+  set() {
+    langStore.toggleLang();
+  }
+});
 
 const themeMode = useThemeMode();
 const { mode } = storeToRefs(themeMode);
@@ -26,7 +43,7 @@ setMaxKeepAlivePages(10);
 
 <template>
   <a-config-provider
-    :locale="locale === 'en' ? enUS : zhCN"
+    :locale="lang === 'en' ? enUS : zhCN"
     :theme="{
       algorithm: mode === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
       token: {
@@ -36,6 +53,7 @@ setMaxKeepAlivePages(10);
     }"
   >
     <main class="AppMain" :mode="mode">
+      <a-switch v-model:checked="checked" />
       <!-- <input type="color" v-model="color"> -->
       <router-link to="/a-v">a-v</router-link>
       <router-link to="/b-v">b-v</router-link>
