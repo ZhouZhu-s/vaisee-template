@@ -7,9 +7,10 @@ export const useKeepAlivePages = () => {
   const route = useRoute();
   const keepAlivePagesStore = useKeepAlivePagesStore();
 
-  watch(route, (r) => {
-    const isKeepAlive = r.meta?.keepAlive;
-    const pageName = r.matched[0]?.components?.default?.name || null;
+  watch(route, () => {
+    const isKeepAlive = route.meta?.keepAlive;
+    const pageName = route.matched[route.matched.length - 1].components?.default?.name || null;
+    console.log('pageName', pageName);
 
     if (isKeepAlive && pageName) {
       keepAlivePagesStore.addIncludePage(pageName);
