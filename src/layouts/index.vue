@@ -3,9 +3,13 @@
     <LayoutHeader />
     <a-layout>
       <LayoutSider :theme="mode" />
-      <a-layout style="padding: 0 24px 24px 24px">
-        <RouterTags style="margin: 5px 0" />
-        <a-layout-content class="layout-content">
+      <a-layout style="padding: 0 24px 24px 24px; box-sizing: border-box">
+        <RouterTags />
+        <a-layout-content
+          class="layout-content"
+          ref="layoutContentRef"
+          :style="{ height: height + 'px' }"
+        >
           <router-view v-slot="{ Component, route }">
             <keep-alive :max="maxKeepAlivePages" :include="includePages">
               <transition name="fade" mode="out-in">
@@ -27,6 +31,7 @@ import RouterTags from '@/components/router-tags/index.vue';
 import LayoutSider from './layout-sider.vue';
 import LayoutHeader from './layout-header.vue';
 import { nextTick, ref, provide } from 'vue';
+import { useFullHeight } from '@/hooks/useFullHeight';
 
 const themeModeStore = useThemeMode();
 const { mode } = storeToRefs(themeModeStore);
@@ -42,12 +47,17 @@ const reload = () => {
   });
 };
 provide('reload', reload);
+
+const layoutContentRef = ref();
+const { height } = useFullHeight(layoutContentRef, 48);
 </script>
 
 <style lang="less" scoped>
 .layout-content {
-  min-height: 240px;
+  width: 100%;
   margin: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .fade-enter-from,

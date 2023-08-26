@@ -3,13 +3,15 @@
   --primary-color: #1890ff;
   --border-radius: 2px;
 
-  --light: #ffffff;
+  --deep-light: #ffffff;
+  --light: rgba(255, 255, 255, 0.88);
   --light-soft: #f8f8f8;
   --light-mute: #f2f2f2;
   --light-little: rgba(255, 255, 255, 0.2);
 
+  --deep-dark: #000000;
   --dark: rgba(0, 0, 0, 0.88);
-  --dark-soft: #222222;
+  --dark-soft: #141414;
   --dark-mute: #282828;
   --dark-little: rgba(0, 0, 0, 0.2);
 
@@ -18,27 +20,36 @@
 }
 
 .AppMain {
-  transition: all 0.3s;
-  min-height: 100vh;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 .AppMain[mode='dark'] {
+  --background-deep-color: var(--deep-dark);
   --background-color: var(--dark);
+  --background-soft-color: var(--dark-soft);
+
   --text-color: rgba(255, 255, 255, 0.85);
   --text-color-soft: rgba(255, 255, 255, 0.65);
+
   --icon-color: var(--light-little);
 
-  background-color: var(--background-color);
+  background-color: var(--background-deep-color);
 }
 
 .AppMain[mode='light'] {
+  --background-deep-color: var(--deep-light);
   --background-color: var(--light);
+  --background-soft-color: var(--light-soft);
+
   --text-color: rgba(0, 0, 0, 0.85);
   --text-color-soft: rgba(0, 0, 0, 0.65);
+  
   --icon-color: var(--dark-little);
 
-  background-color: var(--background-color);
-  
+  background-color: var(--background-deep-color);
 }
 
 *,
