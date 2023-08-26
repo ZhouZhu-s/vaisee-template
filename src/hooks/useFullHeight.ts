@@ -9,7 +9,7 @@ export const useFullHeight = (elRef: Ref<any>, extraHeight = 0) => {
     () => el.value,
     () => {
       const { top } = el.value.getBoundingClientRect();
-      height.value = top - extraHeight;
+      height.value = window.innerHeight - top - extraHeight;
     }
   );
 

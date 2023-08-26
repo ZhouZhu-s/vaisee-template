@@ -39,6 +39,9 @@ const handleTableChange = (pagination: any) => {
   getList();
 };
 
+const tableRef = ref();
+const { height } = useFullHeight(tableRef, 120);
+
 useMounted(() => {
   getList();
 });
@@ -57,7 +60,7 @@ useMounted(() => {
         :pagination="pagination"
         :loading="loading"
         @change="handleTableChange"
-        :scroll="{ y: 'calc(100vh - 340px)' }"
+        :scroll="{ y: height }"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.dataIndex === 'action'">
