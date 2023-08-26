@@ -16,12 +16,15 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
+    "@vueuse/components": "^10.4.0",
+    "@vueuse/core": "^10.4.0",
     "ant-design-vue": "4.0.0",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
     "pinia": "^2.1.4",
     "pinia-plugin-persistedstate": "^3.2.0",
     "unplugin-vue-components": "^0.25.1",
+    "use-scrollbars": "^0.4.8",
     "vue": "^3.3.4",
     "vue-i18n": "9.3.0-beta.26",
     "vue-router": "^4.2.4"
