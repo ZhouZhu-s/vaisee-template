@@ -4,8 +4,8 @@
       <template v-for="(i, index) in items" :key="i.key + index">
         <a-col v-show="expand || index <= expandNumber" :span="span">
           <div class="item">
-            <div :style="{ width: labelWidth, textAlign: labelTextAlign, marginRight: '5px' }">
-              {{ i.label }}
+            <div :style="{ width: labelWidth, textAlign: labelTextAlign }" class="label">
+              {{ i.label }}&nbsp;
             </div>
             <!-- input -->
             <a-input
@@ -93,9 +93,14 @@ const onReset = () => {
 
 <style lang="less">
 .v-search-form {
+  width: calc(100% - 10px);
+  box-sizing: border-box;
   .item {
     display: flex;
     align-items: center;
+    .label {
+      color: var(--text-color);
+    }
   }
 }
 </style>
