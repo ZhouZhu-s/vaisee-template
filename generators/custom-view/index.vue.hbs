@@ -8,6 +8,8 @@ import { SearchList, columns } from './const.data';
 import type { ListItem } from './types';
 import { useMounted } from '@/hooks/usePageLife';
 
+defineOptions({ name: '{{ name }}', });
+
 const searchList = ref(SearchList);
 const onSearch = (data: any) => {
   console.log(data);
@@ -40,7 +42,7 @@ const handleTableChange = (pagination: any) => {
 };
 
 const tableRef = ref();
-const { height } = useFullHeight(tableRef, 120);
+const { height } = useFullHeight(tableRef, 148);
 
 useMounted(() => {
   getList();
