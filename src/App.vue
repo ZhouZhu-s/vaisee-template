@@ -8,7 +8,6 @@ import { theme } from 'ant-design-vue';
 import { useThemeMode } from '@/stores/themeMode';
 import { storeToRefs } from 'pinia';
 import { useCssVarStore } from '@/stores/cssStore';
-import { useKeepAlivePages } from '@/hooks/useKeepAlivePages';
 import { useLangStore } from '@/stores/lang';
 import { useI18n } from 'vue-i18n';
 
@@ -26,9 +25,6 @@ const themeMode = useThemeMode();
 const { mode } = storeToRefs(themeMode);
 
 const cssVarStore = useCssVarStore();
-
-const { includePages, maxKeepAlivePages, setMaxKeepAlivePages } = useKeepAlivePages();
-setMaxKeepAlivePages(10);
 </script>
 
 <template>
@@ -43,13 +39,14 @@ setMaxKeepAlivePages(10);
     }"
   >
     <main class="AppMain" :mode="mode">
-      <router-view v-slot="{ Component, route }">
-        <keep-alive :max="maxKeepAlivePages" :include="includePages">
-          <component :is="Component" :key="route.fullPath" />
-        </keep-alive>
-      </router-view>
+      <router-view />
     </main>
   </a-config-provider>
 </template>
 
-<style lang="less"></style>
+<style lang="less">
+.AppMain {
+  width: 100%;
+  height: 100vh;
+}
+</style>

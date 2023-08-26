@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useRouterTags, type RouterTag } from '@/stores/routerTags';
 import { useCssVarStore } from '@/stores/cssStore';
 import { storeToRefs } from 'pinia';
 import { CloseCircleFilled } from '@ant-design/icons-vue';
+import { SyncOutlined, MenuOutlined } from '@ant-design/icons-vue';
 
 defineOptions({ name: 'router-tags' });
 
@@ -37,66 +38,105 @@ const handleClick = (item: RouterTag) => {
 const handleClose = (path: string) => {
   routerTags.remove(path);
 };
+
+const reload = inject('reload') as Function;
+const isRotate = ref(false);
+const handleReload = () => {
+  reload();
+  isRotate.value = true;
+  setTimeout(() => {
+    isRotate.value = false;
+  }, 300);
+};
 </script>
 
 <template>
   <section class="router-tags">
-    <a-button
-      size="small"
-      v-for="item in tagList"
-      :key="item.path"
-      @click.stop="handleClick(item)"
-      style="margin-right: 10px"
-    >
-      <div
-        :style="{
-          color:
-            route.fullPath === item.path
-              ? getCssVar('--primary-color') || '#1890ff'
-              : 'var(--text-color)'
-        }"
-        class="item"
-        @mouseenter="item.isHover = true"
-        @mouseleave="item.isHover = false"
+    <div class="tags">
+      <a-button
+        size="small"
+        v-for="item in tagList"
+        :key="item.path"
+        @click.stop="handleClick(item)"
+        style="margin-right: 10px"
       >
-        <span class="title">{{ item.title }}</span>
-        <close-circle-filled
-          class="close"
-          v-if="item.isHover"
-          @click.stop="handleClose(item.path)"
-        />
-        <div class="close" v-else></div>
-      </div>
-    </a-button>
+        <div
+          :style="{
+            color:
+              route.fullPath === item.path
+                ? getCssVar('--primary-color') || '#1890ff'
+                : 'var(--text-color)'
+          }"
+          class="item"
+          @mouseenter="item.isHover = true"
+          @mouseleave="item.isHover = false"
+        >
+          <span class="title">{{ item.title }}</span>
+          <close-circle-filled
+            class="close"
+            v-if="item.isHover"
+            @click.stop="handleClose(item.path)"
+          />
+          <div class="close" v-else></div>
+        </div>
+      </a-button>
+    </div>
+    <div class="expand">
+      <sync-outlined
+        :class="{ rotate: isRotate }"
+        class="cursor-pointer"
+        @click="handleReload"
+      />
+      <!-- <a-popover placement="bottomRight">
+        <template #content>
+          <p>s</p>
+        </template>
+        <MenuOutlined class="cursor-pointer" />
+      </a-popover> -->
+    </div>
   </section>
 </template>
 
 <style lang="less" scoped>
 .router-tags {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   overflow-x: auto;
-  padding: 5px;
+  padding: 5px 0;
   &::-webkit-scrollbar {
     width: 0px;
   }
-  .item {
-    display: flex;
-    align-items: center;
-    color: var(--text-color);
-    .title {
-      margin-right: 5px;
-    }
-    .close {
-      position: relative;
-      z-index: 999;
-      font-size: 11px;
-      width: 11px;
-      cursor: pointer;
-      color: var(--icon-color);
+  &::-moz-scrollbar {
+    width: 0px;
+  }
+  .tags {
+    .item {
+      display: flex;
+      align-items: center;
+      color: var(--text-color);
+      .title {
+        margin-right: 5px;
+      }
+      .close {
+        position: relative;
+        z-index: 999;
+        font-size: 11px;
+        width: 11px;
+        cursor: pointer;
+        color: var(--icon-color);
+      }
     }
   }
-  .is-active {
-    color: var(--primary-color);
+  .expand {
+    color: var(--text-color);
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .rotate {
+      transform: rotate(180deg);
+      transition: all 0.3s ease-in-out;
+    }
   }
 }
 </style>
