@@ -36,6 +36,11 @@
 
   --icon-color: var(--light-little);
 
+  /* layout header */
+  --primary-background: var(--dark-soft);
+
+  --shadow-color: var(--dark);
+
   background-color: var(--background-deep-color);
 }
 
@@ -48,6 +53,11 @@
   --text-color-soft: rgba(0, 0, 0, 0.65);
   
   --icon-color: var(--dark-little);
+
+  /* layout header */
+  --primary-background: var(--deep-light);
+
+  --shadow-color: var(--divider-light);
 
   background-color: var(--background-deep-color);
 }
