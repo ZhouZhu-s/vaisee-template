@@ -18,7 +18,11 @@ const route = useRoute();
 watch(route, () => {
   if (route.fullPath !== '/') {
     const isExited = routerTags.isExited(route.fullPath);
-    !isExited && routerTags.add((route?.meta?.title as string) || 'default title', route.fullPath);
+    if (isExited) {
+      routerTags.setActive(route.fullPath);
+    } else {
+      routerTags.add((route?.meta?.title as string) || 'default title', route.fullPath);
+    }
   }
 });
 
@@ -82,17 +86,17 @@ const handleReload = () => {
       </a-button>
     </div>
     <div class="expand">
-      <sync-outlined
-        :class="{ rotate: isRotate }"
-        class="cursor-pointer"
-        @click="handleReload"
-      />
-      <!-- <a-popover placement="bottomRight">
-        <template #content>
-          <p>s</p>
+      <sync-outlined :class="{ rotate: isRotate }" class="cursor-pointer" @click="handleReload" />
+      <a-dropdown>
+        <MenuOutlined class="cursor-pointer" style="margin-left: 8px" />
+        <template #overlay>
+          <a-menu>
+            <a-menu-item @click="routerTags.removeUnActive()">
+              <a>关闭其它</a>
+            </a-menu-item>
+          </a-menu>
         </template>
-        <MenuOutlined class="cursor-pointer" />
-      </a-popover> -->
+      </a-dropdown>
     </div>
   </section>
 </template>

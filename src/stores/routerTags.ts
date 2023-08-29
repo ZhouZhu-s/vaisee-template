@@ -61,6 +61,20 @@ export const useRouterTags = defineStore('RouterTagStore', {
           item.active = false;
         }
       });
+    },
+
+    removeUnActive() {
+      this.tagList = this.tagList.filter((item) => item.active);
+    },
+
+    setActive(path: string) {
+      this.tagList.forEach((item) => {
+        if (item.path === path) {
+          item.active = true;
+        } else {
+          item.active = false;
+        }
+      });
     }
   }
 });
