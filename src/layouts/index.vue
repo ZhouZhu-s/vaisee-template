@@ -49,7 +49,7 @@ const reload = () => {
 provide('reload', reload);
 
 const layoutContentRef = ref();
-const { height } = useFullHeight(layoutContentRef, 48);
+const { height } = useFullHeight(layoutContentRef, 24);
 </script>
 
 <style lang="less" scoped>
@@ -58,6 +58,7 @@ const { height } = useFullHeight(layoutContentRef, 48);
   margin: 0;
   box-sizing: border-box;
   overflow-y: auto;
+  background-color: aquamarine;
 }
 
 .fade-enter-from,
