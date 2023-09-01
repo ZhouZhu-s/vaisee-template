@@ -41,6 +41,9 @@
 
   --shadow-color: var(--dark);
 
+  /* scrollbar color */
+  --scrollbar-color: var(--light-little);
+
   background-color: var(--background-deep-color);
 }
 
@@ -58,6 +61,8 @@
   --primary-background: var(--deep-light);
 
   --shadow-color: var(--divider-light);
+
+  --scrollbar-color: var(--dark-little);
 
   background-color: var(--background-deep-color);
 }
