@@ -1,23 +1,25 @@
-import { watch } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useKeepAlivePagesStore } from '@/stores/keepAlivePages';
 import { useRoute } from 'vue-router';
-import { storeToRefs } from 'pinia';
+import { watch } from 'vue';
 
 export const useKeepAlivePages = () => {
   const route = useRoute();
   const keepAlivePagesStore = useKeepAlivePagesStore();
 
-  watch(route, () => {
-    const isKeepAlive = route.meta?.keepAlive;
-    const pageName = route.matched[route.matched.length - 1].components?.default?.name || null;
-    console.log('pageName', pageName);
+  watch(
+    () => route.fullPath,
+    () => {
+      const isKeepAlive = route.meta?.keepAlive;
+      const pageName = route.matched[route.matched.length - 1].components?.default?.name || null;
 
-    if (isKeepAlive && pageName) {
-      keepAlivePagesStore.addIncludePage(pageName);
+      if (isKeepAlive && pageName) {
+        keepAlivePagesStore.addIncludePage(pageName);
+      }
+
+      keepAlivePagesStore.setCurrentPageName(pageName);
     }
-    
-    keepAlivePagesStore.setCurrentPageName(pageName);
-  });
+  );
 
   return {
     ...storeToRefs(keepAlivePagesStore),

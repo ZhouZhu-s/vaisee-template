@@ -81,7 +81,7 @@ const handleReload = () => {
             v-if="item.isHover"
             @click.stop="handleClose(item.path)"
           />
-          <div class="close" v-else></div>
+          <!-- <div class="close" v-else></div> -->
         </div>
       </a-button>
     </div>
@@ -107,6 +107,7 @@ const handleReload = () => {
   align-items: center;
   justify-content: space-between;
   overflow-x: auto;
+  min-height: 22px;
   padding: 5px 0;
   &::-webkit-scrollbar {
     width: 0px;

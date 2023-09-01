@@ -1,5 +1,6 @@
-import { useKeepAlivePagesStore } from '@/stores/keepAlivePages';
 import { onActivated, onMounted } from 'vue';
+
+import { useKeepAlivePagesStore } from '@/stores/keepAlivePages';
 
 export const useMounted = (fn: () => void) => {
   const keepAlivePagesStore = useKeepAlivePagesStore();
