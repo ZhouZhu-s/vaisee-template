@@ -35,6 +35,13 @@ watch(
     immediate: true
   }
 );
+watch(
+  isSyncSystem,
+  () => {
+    isDark.value ? themeMode.setMode('dark') : themeMode.setMode('light');
+  },
+  { immediate: true }
+);
 
 const cssVarStore = useCssVarStore();
 </script>
