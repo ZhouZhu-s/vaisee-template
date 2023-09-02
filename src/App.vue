@@ -23,6 +23,9 @@ dayjs.locale(lang.value);
 
 const themeMode = useThemeMode();
 const { mode } = storeToRefs(themeMode);
+watch(mode, () => {
+  document.body.setAttribute('mode', mode.value);
+});
 
 const cssVarStore = useCssVarStore();
 </script>
@@ -38,7 +41,7 @@ const cssVarStore = useCssVarStore();
       }
     }"
   >
-    <main class="AppMain" :mode="mode">
+    <main class="AppMain">
       <router-view />
     </main>
   </a-config-provider>

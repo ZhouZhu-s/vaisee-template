@@ -19,14 +19,7 @@
   --divider-light: rgba(0, 0, 0, 0.06);
 }
 
-.AppMain {
-  transition: color 0.3s ease, background-color 0.3s ease;
-  width: 100%;
-  height: 100vh;
-  box-sizing: border-box;
-}
-
-.AppMain[mode='dark'] {
+body[mode='dark'] {
   --background-deep-color: var(--deep-dark);
   --background-color: var(--dark);
   --background-soft-color: var(--dark-soft);
@@ -34,37 +27,51 @@
   --text-color: rgba(255, 255, 255, 0.85);
   --text-color-soft: rgba(255, 255, 255, 0.65);
 
+  /* icon color */
   --icon-color: var(--light-little);
 
-  /* layout header */
+  /* primary background */
   --primary-background: var(--dark-soft);
 
+  /* shadow color */
   --shadow-color: var(--dark);
 
   /* scrollbar color */
   --scrollbar-color: var(--light-little);
 
+  /* background color */
   background-color: var(--background-deep-color);
 }
 
-.AppMain[mode='light'] {
+body[mode='light'] {
   --background-deep-color: var(--deep-light);
   --background-color: var(--light);
   --background-soft-color: var(--light-soft);
 
   --text-color: rgba(0, 0, 0, 0.85);
   --text-color-soft: rgba(0, 0, 0, 0.65);
-  
+
+  /* icon color */
   --icon-color: var(--dark-little);
 
-  /* layout header */
+  /* primary background */
   --primary-background: var(--deep-light);
 
+  /* shadow color */
   --shadow-color: var(--divider-light);
 
+  /* scrollbar color */
   --scrollbar-color: var(--dark-little);
 
+  /* background color */
   background-color: var(--background-deep-color);
+}
+
+body {
+  transition: color 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 *,
