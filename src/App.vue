@@ -23,9 +23,15 @@ dayjs.locale(lang.value);
 
 const themeMode = useThemeMode();
 const { mode } = storeToRefs(themeMode);
-watch(mode, () => {
-  document.body.setAttribute('mode', mode.value);
-});
+watch(
+  mode,
+  () => {
+    document.body.setAttribute('mode', mode.value);
+  },
+  {
+    immediate: true
+  }
+);
 
 const cssVarStore = useCssVarStore();
 </script>
