@@ -10,6 +10,7 @@ import { storeToRefs } from 'pinia';
 import { useCssVarStore } from '@/stores/cssStore';
 import { useLangStore } from '@/stores/lang';
 import { useI18n } from 'vue-i18n';
+import { usePreferredDark } from '@vueuse/core';
 
 const langStore = useLangStore();
 const { lang } = storeToRefs(langStore);
@@ -21,8 +22,10 @@ watch(lang, () => {
 
 dayjs.locale(lang.value);
 
+const isDark = usePreferredDark();
 const themeMode = useThemeMode();
-const { mode } = storeToRefs(themeMode);
+const { mode, isSyncSystem } = storeToRefs(themeMode);
+isSyncSystem.value && themeMode.setMode(isDark.value ? 'dark' : 'light');
 watch(
   mode,
   () => {

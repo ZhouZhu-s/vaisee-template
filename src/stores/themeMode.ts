@@ -2,12 +2,14 @@ import { defineStore } from 'pinia';
 
 type State = {
   mode: 'light' | 'dark';
+  isSyncSystem: boolean;
 };
 
 export const useThemeMode = defineStore('ThemeModeStore', {
   state: (): State => {
     return {
-      mode: 'dark'
+      mode: 'dark',
+      isSyncSystem: true
     };
   },
   persist: {
@@ -25,6 +27,11 @@ export const useThemeMode = defineStore('ThemeModeStore', {
 
     toggleMode() {
       this.mode = this.mode === 'light' ? 'dark' : 'light';
+    },
+
+    setSyncSystem(isSyncSystem: boolean) {
+      this.isSyncSystem = isSyncSystem;
     }
-  }
+  },
 });
+
