@@ -106,16 +106,17 @@ const handleReload = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  overflow-x: auto;
   min-height: 22px;
   padding: 5px 0;
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
-  &::-moz-scrollbar {
-    width: 0px;
-  }
+  width: 100%;
   .tags {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
     .item {
       display: flex;
       align-items: center;
@@ -134,6 +135,8 @@ const handleReload = () => {
     }
   }
   .expand {
+    display: flex;
+    flex-direction: row;
     color: var(--text-color);
     .cursor-pointer {
       cursor: pointer;

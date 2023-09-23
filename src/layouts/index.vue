@@ -2,7 +2,8 @@
   <a-layout :theme="mode">
     <LayoutHeader />
     <a-layout>
-      <LayoutSider :theme="mode" />
+      <RouteMenu :theme="mode" v-if="AppSetting.useRouteMenu" />
+      <Menu :theme="mode" v-else />
       <a-layout style="padding: 0 24px 24px 24px; box-sizing: border-box">
         <RouterTags />
         <a-layout-content
@@ -10,13 +11,6 @@
           ref="layoutContentRef"
           :style="{ height: height + 'px' }"
         >
-          <!-- <router-view v-slot="{ Component, route }">
-            <Transition name="slide-fade" mode="out-in">
-              <keep-alive>
-                <component :is="Component" :key="getKey(route)" v-if="isRouterAlive" />
-              </keep-alive>
-            </Transition>
-          </router-view> -->
           <router-view v-slot="{ Component, route }">
             <transition name="slide-fade" mode="out-in">
               <keep-alive :max="maxKeepAlivePages" :include="includePages">
@@ -34,12 +28,15 @@
 import { useThemeMode } from '@/stores/themeMode';
 import { storeToRefs } from 'pinia';
 import RouterTags from '@/components/router-tags/index.vue';
-import LayoutSider from './layout-sider.vue';
+import RouteMenu from './layout-sider/route-menu.vue';
+import Menu from './layout-sider/menu.vue';
 import LayoutHeader from './layout-header.vue';
-import { nextTick, ref, provide, Transition } from 'vue';
+import { nextTick, ref, provide } from 'vue';
 import { useFullHeight } from '@/hooks/useFullHeight';
-import type { RouteLocationNormalizedLoaded } from 'vue-router';
 import { useKeepAlivePages } from '@/hooks/useKeepAlivePages';
+import AppSetting from '@/settings/projectSetting';
+
+defineOptions({ name: 'layout-index' });
 
 const { includePages, maxKeepAlivePages, setMaxKeepAlivePages } = useKeepAlivePages();
 setMaxKeepAlivePages(10);
@@ -58,12 +55,6 @@ provide('reload', reload);
 
 const layoutContentRef = ref();
 const { height } = useFullHeight(layoutContentRef, 26);
-
-const getKey = (route: RouteLocationNormalizedLoaded): string => {
-  const key = route.meta?.keepAlive ? route.path : route.path + '-' + new Date().getTime();
-  console.log(route.meta?.keepAlive, key);
-  return key;
-};
 </script>
 
 <style lang="less" scoped>
@@ -72,7 +63,6 @@ const getKey = (route: RouteLocationNormalizedLoaded): string => {
   margin: 0;
   box-sizing: border-box;
   overflow-y: auto;
-  background-color: aquamarine;
 }
 
 .slide-fade-enter-active {

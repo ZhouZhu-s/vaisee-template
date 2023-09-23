@@ -1,5 +1,7 @@
-import { checkAuth } from '@/utils/authority';
 import type { RouteLocationNormalized, Router } from 'vue-router';
+
+import { checkAuth } from '@/utils/authority';
+import { message } from 'ant-design-vue';
 
 const setTitle = (to: RouteLocationNormalized) => {
   const appTile = import.meta.env.VITE_APP_TITLE;
@@ -7,7 +9,7 @@ const setTitle = (to: RouteLocationNormalized) => {
 };
 
 const checkLogin = (to: RouteLocationNormalized) => {
-  if (to.meta?.isLogin) {
+  if (to.meta?.needLogin) {
     const token = localStorage.getItem('Authorization');
     if (!token) {
       return false;
@@ -17,8 +19,11 @@ const checkLogin = (to: RouteLocationNormalized) => {
 };
 
 const isAuth = (to: RouteLocationNormalized) => {
-  const permissions = (to.meta?.permissions as string[]) || [];
-  return checkAuth(permissions);
+  if (to.meta?.ignoreAuth) {
+    const auth = (to.meta.auth as string[]) || [];
+    return checkAuth(auth);
+  }
+  return true;
 };
 
 export const setRouteGuard = (router: Router) => {
@@ -26,7 +31,10 @@ export const setRouteGuard = (router: Router) => {
     if (checkLogin(to)) {
       setTitle(to);
       next();
+    } else if (isAuth(to)) {
+      next();
     } else {
+      message.warning('请先登录');
       next({ path: '/' });
     }
   });

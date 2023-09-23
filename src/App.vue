@@ -19,7 +19,6 @@ const { locale } = useI18n();
 watch(lang, () => {
   locale.value = lang.value;
 });
-
 dayjs.locale(lang.value);
 
 const isDark = usePreferredDark();
@@ -27,22 +26,12 @@ const themeMode = useThemeMode();
 const { mode, isSyncSystem } = storeToRefs(themeMode);
 isSyncSystem.value && themeMode.setMode(isDark.value ? 'dark' : 'light');
 watch(
-  mode,
-  () => {
-    document.body.setAttribute('mode', mode.value);
-  },
-  {
-    immediate: true
-  }
-);
-watch(
-  isSyncSystem,
+  () => [isSyncSystem.value, isDark.value, mode.value],
   () => {
     isDark.value ? themeMode.setMode('dark') : themeMode.setMode('light');
   },
   { immediate: true }
 );
-
 const cssVarStore = useCssVarStore();
 </script>
 
