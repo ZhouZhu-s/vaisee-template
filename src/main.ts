@@ -1,12 +1,11 @@
 import './assets/main.css';
 
-import { createApp } from 'vue';
-import { setupRouter } from './router';
-import { setupDirectives } from './directives';
-import { setupStore } from './stores';
-import { setupI18n } from './lang';
-
 import App from './App.vue';
+import { createApp } from 'vue';
+import { setupDirectives } from './directives';
+import { setupI18n } from './lang';
+import { setupRouter } from './router';
+import { setupStore } from './stores';
 
 const app = createApp(App);
 
