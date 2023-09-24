@@ -3,11 +3,10 @@
     <a-row class="row">
       <a-col :span="8" class="label">{{ t('language') }}</a-col>
       <a-col :span="16">
-        <a-switch
-          v-model:checked="isZhCh"
-          checked-children="english"
-          un-checked-children="中文"
-        ></a-switch>
+        <a-select v-model:value="lang" style="width: 100%" @change="onLanguageChange">
+          <a-select-option value="zh-cn">中文</a-select-option>
+          <a-select-option value="en">English</a-select-option>
+        </a-select>
       </a-col>
     </a-row>
     <a-row class="row">
@@ -38,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ThemeSwitch from '@/components/theme-switch/index.vue';
 import { useLangStore } from '@/stores/lang';
@@ -63,14 +62,9 @@ const themeModeSyncSystem = computed({
 
 const langStore = useLangStore();
 const { lang } = storeToRefs(langStore);
-const isZhCh = computed({
-  get() {
-    return lang.value === 'zh-cn';
-  },
-  set(val) {
-    lang.value = val ? 'zh-cn' : 'en';
-  }
-});
+const onLanguageChange = () => {
+  langStore.setLang(lang.value);
+};
 
 const emit = defineEmits(['update:visible']);
 const props = defineProps({
