@@ -26,7 +26,7 @@ const themeMode = useThemeMode();
 const { mode, isSyncSystem } = storeToRefs(themeMode);
 isSyncSystem.value && themeMode.setMode(isDark.value ? 'dark' : 'light');
 watch(
-  () => [isSyncSystem.value, isDark.value, mode.value],
+  () => [isSyncSystem.value, isDark.value],
   () => {
     isDark.value ? themeMode.setMode('dark') : themeMode.setMode('light');
   },
