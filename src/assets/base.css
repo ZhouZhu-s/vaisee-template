@@ -17,6 +17,8 @@
 
   --divider-dark: rgba(84, 84, 84, 0.65);
   --divider-light: rgba(0, 0, 0, 0.06);
+
+  --danger-color: #ff4d4f;
 }
 
 body[mode='dark'] {
