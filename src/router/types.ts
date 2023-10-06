@@ -26,7 +26,7 @@ interface Mete extends RouteMeta {
   /**
    * 菜单图标
    */
-  icon?: Component | string;
+  icon?: Component;
   /**
    * 是否显示菜单
    */

@@ -1,5 +1,6 @@
 import type { AppRouteRecordRaw } from '@/router/types';
 import type { MenuItemType } from './types';
+import { h } from 'vue';
 import { modules } from '@/router/routes/modules';
 
 const menuModuleList: AppRouteRecordRaw[] = [];
@@ -11,23 +12,25 @@ Object.keys(modules).forEach((key) => {
 });
 
 function convert(menu: AppRouteRecordRaw | AppRouteRecordRaw[]): MenuItemType[] {
-
   const items: MenuItemType[] = [];
 
   function recurse(item: AppRouteRecordRaw): MenuItemType | null {
-    const menuItem: MenuItemType = {
-      title: item.meta.title,
-      label: item.meta.title,
-      key: item.name as string,
-      orderNo: item.meta?.orderNo || 0,
-    };
+    const menuItem: MenuItemType = Object.assign(
+      {},
+      {
+        title: item.meta.title,
+        label: item.meta.title,
+        key: item.name as string,
+        orderNo: item.meta?.orderNo || 0
+      },
+      item.meta?.icon ? { icon: h(item.meta.icon) } : {}
+    );
 
     if (item.children) {
       menuItem.children = [];
-      item.children.forEach(child => {
+      item.children.forEach((child) => {
         const childItem = recurse(child as AppRouteRecordRaw);
         if (childItem) {
-          // console.log('childItem', childItem);
           menuItem.children?.push(childItem);
         }
       });
@@ -41,7 +44,7 @@ function convert(menu: AppRouteRecordRaw | AppRouteRecordRaw[]): MenuItemType[] 
   }
 
   if (Array.isArray(menu)) {
-    menu.forEach(item => {
+    menu.forEach((item) => {
       const converted = recurse(item);
       if (converted) {
         // console.log('converted', converted);
