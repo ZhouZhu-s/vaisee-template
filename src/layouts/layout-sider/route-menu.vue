@@ -3,7 +3,13 @@
     mode="inline"
     v-model:selectedKeys="selectedKeys"
     v-model:openKeys="openKeys"
-    :style="{ height: 'calc(100vh - 64px)', borderRight: 0, maxWidth: '200px', overflow: 'auto' }"
+    :style="{
+      height: 'calc(100vh - 64px)',
+      borderRight: 0,
+      maxWidth: '200px',
+      overflow: 'auto',
+      backgroundColor: 'var(--primary-background)'
+    }"
     :items="items"
     :inlineCollapsed="collapsed"
     @select="handleSelect"
