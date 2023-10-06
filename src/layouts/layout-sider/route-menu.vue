@@ -1,21 +1,31 @@
 <template>
-  <SiderDom />
+  <Menu
+    mode="inline"
+    v-model:selectedKeys="selectedKeys"
+    v-model:openKeys="openKeys"
+    :style="{ height: 'calc(100vh - 64px)', borderRight: 0, maxWidth: '200px', overflow: 'auto' }"
+    :items="items"
+    :inlineCollapsed="collapsed"
+    @select="handleSelect"
+  ></Menu>
 </template>
 
-<script setup lang="tsx">
-import { LayoutSider, Menu, type SiderProps, type ItemType } from 'ant-design-vue';
+<script setup lang="ts">
+import { Menu, type ItemType } from 'ant-design-vue';
 import { onMounted, ref } from 'vue';
-import menus from '@/router/menus/index';
 import type { SelectInfo } from 'ant-design-vue/es/menu/src/interface';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import menus from '@/router/menus';
+import setting from '@/settings/projectSetting';
 
 defineOptions({ name: 'route-menu' });
 
-const props = defineProps<SiderProps & { theme: 'light' | 'dark' }>();
+const collapsed = ref(false);
+const openKeys = ref<string[]>([setting?.preOpenKeyOfMenu || '']);
+const items = ref<ItemType[]>(menus as unknown as ItemType[]);
 
-const selectedKeys = ref<string[]>([]);
-const openKeys = ref<string[]>([]);
-const items = ref<ItemType[]>([]);
+const route = useRoute();
+const selectedKeys = ref<string[]>([route?.name?.toString() || '']);
 
 const router = useRouter();
 const handleSelect = (e: SelectInfo) => {
@@ -23,33 +33,5 @@ const handleSelect = (e: SelectInfo) => {
   router.push({ name: e.key });
 };
 
-const offsetTop = ref(64);
-
-const SiderDom = () => (
-  <>
-    <LayoutSider
-      {...props}
-      class={'___layout-sider'}
-      style={{
-        background: 'var(--primary-background)',
-        height: `calc(100vh - ${offsetTop.value}px)`,
-        overflowY: 'auto'
-      }}
-    >
-      <Menu
-        mode="inline"
-        v-model={[selectedKeys.value, 'selectedKeys']}
-        openKeys={openKeys.value}
-        items={items.value}
-        onSelect={(e) => handleSelect(e)}
-      ></Menu>
-    </LayoutSider>
-  </>
-);
-
-onMounted(() => {
-  items.value = menus as ItemType[];
-  const { top } = document.querySelector('.___layout-sider')?.getBoundingClientRect() || { top: 0 };
-  offsetTop.value = top;
-});
+onMounted(() => {});
 </script>

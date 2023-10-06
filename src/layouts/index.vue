@@ -1,10 +1,10 @@
 <template>
   <a-layout :theme="mode">
     <LayoutHeader />
-    <a-layout>
+    <main style="display: flex;">
       <RouteMenu :theme="mode" v-if="AppSetting.useRouteMenu" />
       <Menu :theme="mode" v-else />
-      <a-layout style="padding: 0 24px 24px 24px; box-sizing: border-box">
+      <a-layout style="padding: 0 24px 24px 24px; box-sizing: border-box; width: 100%;">
         <RouterTags />
         <a-layout-content
           class="layout-content"
@@ -20,7 +20,7 @@
           </router-view>
         </a-layout-content>
       </a-layout>
-    </a-layout>
+    </main>
   </a-layout>
 </template>
 

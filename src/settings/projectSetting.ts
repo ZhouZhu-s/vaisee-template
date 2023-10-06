@@ -7,4 +7,8 @@ export default {
    * 登录后跳转的路由
    */
   afterLoginRoute: '/views/three',
+  /**
+   * 登录后打开的菜单：AppRouteRecordRaw.name
+   */
+  preOpenKeyOfMenu: 'threeIndex',
 }
