@@ -10,9 +10,13 @@ import mkcert from 'vite-plugin-mkcert'; // https 插件
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }): UserConfig => {
-  const isHttps = loadEnv(mode, process.cwd()).VITE_LOCAL_SERVER_HTTPS === 'true';
+  const env = loadEnv(mode, process.cwd());
+  const isHttps = env.VITE_LOCAL_SERVER_HTTPS === 'true';
+  const base = env.VITE_BASE_PATH;
 
   return {
+    base: base,
+
     plugins: [
       vue(),
       vueJsx(),
